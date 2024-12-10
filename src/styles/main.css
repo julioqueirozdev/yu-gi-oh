@@ -87,9 +87,11 @@
 .card-versus__container{
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-content: center;
     padding-top: 0.2rem;
     height: 300px;
-    margin-top: 5rem;
+    
 }
 
 .versus-top, .versus-bottom{
@@ -127,4 +129,8 @@
 
 .card:hover{
     transform: scale(1.2);
+}
+
+.debug{
+    border: 1px solid red;
 }
