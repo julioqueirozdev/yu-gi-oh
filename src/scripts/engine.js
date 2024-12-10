@@ -204,6 +204,8 @@ async function playAudio(status) {
 }
 
 function init() {
+  const bgm = document.getElementById('bgm');
+  bgm.play();
 
   showHiddenCardFieldImages(false);
   drawCards(5, playerSides.player1);
