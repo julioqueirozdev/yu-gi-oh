@@ -43,7 +43,7 @@ const cardData = [
     LoseOf: [0],
   },
   {
-    id: 3,
+    id: 2,
     name: "Exodia",
     type: "Scissors",
     img: `${pathImages}exodia.png`,
@@ -68,7 +68,7 @@ async function createCardImage(IdCard, fieldSide) {
     cardImage.addEventListener("click", () => {
       setCardsField(cardImage.getAttribute("data-id"));
     });
-    
+
     cardImage.addEventListener("mouseover", () => {
       drawSelectCard(IdCard);
     });
@@ -76,6 +76,25 @@ async function createCardImage(IdCard, fieldSide) {
 
   return cardImage;
 }
+
+async function setCardsField(cardId) {
+  
+  //remove todas as cartas antes
+    await removeAllCardsImages();
+
+  let computerCardId = await getRandomCardId();
+  state.fieldCards.player.style.display = "block";
+  state.fieldCards.computer.style.display = "block";
+
+  state.fieldCards.player.src = cardData[cardId].img;
+  state.fieldCards.computer.src = cardData[computerCardId].img;
+
+  let duelResults = await checkDuelResults(cardId, computerCardId);
+
+  await updateScore();
+  await drawButton();
+}
+
 
 async function drawSelectCard(index) {
   state.cardSprite.avatar.src = cardData[index].img;
