@@ -22,8 +22,10 @@ const state = {
     computer: "computer-cards",
     computerBOX: document.querySelector('#computer-cards'),
   },
-
+  actions:{
   button: document.getElementById("next-duel"),
+  }
+  
 };
 
 const playerSides = {
@@ -100,7 +102,35 @@ async function setCardsField(cardId) {
   let duelResults = await checkDuelResults(cardId, computerCardId);
 
   await updateScore();
-  await drawButton();
+  await drawButton(duelResults);
+}
+
+async function drawButton(text) {
+  state.actions.button.innerText = text;
+  state.actions.button.style.display = 'block';  
+}
+
+async function updateScore(params) {
+  state.score.scoreBox.innerText = `Win: ${state.score.playerScore} | Lose: ${state.score.computerScore}`; 
+}
+
+async function checkDuelResults(playerCardId, ComputerCardId) {
+  let duelResults = 'Empate'
+  let playerCard = cardData[playerCardId];
+
+  if (playerCard.WinOf.includes(ComputerCardId)) {
+    duelResults = 'Ganhou!';
+    state.score.playerScore++;
+  }
+
+  if(playerCard.LoseOf.includes(ComputerCardId)){
+    duelResults = "Perdeu!"
+    state.score.computerScore++;
+  }
+
+  console.log(duelResults)
+  return duelResults;
+  
 }
 
 
